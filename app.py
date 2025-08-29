@@ -44,11 +44,16 @@ def filename(freq, title):
 env = Environment(loader=FileSystemLoader("templates"),
                   autoescape=select_autoescape(["html","xml"]))
 
+@app.get("/health", include_in_schema=False)
+def health():
+    return Response(content="ok", media_type="text/plain")
+
 @app.get("/", response_class=PlainTextResponse)
 def root(): return "OK - See /docs and /privacy"
 
 @app.get("/privacy", response_class=HTMLResponse)
 def privacy(): return f"<h1>Privacy</h1><p>Effective: {today()}</p>"
+
 
 @app.post("/render/v1-standard-report")
 def render_standard_report(p: Payload, request: Request, x_api_key: Optional[str] = Header(default=None)):

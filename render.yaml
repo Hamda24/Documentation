@@ -1,0 +1,6 @@
+services:
+  - type: web
+    env: docker
+    name: standard-report
+    healthCheckPath: /health
+    autoDeploy: true
