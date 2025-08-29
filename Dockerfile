@@ -5,11 +5,18 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# WeasyPrint OS deps + curl for debugging/health
+# WeasyPrint OS deps + curl for health/debug
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpango-1.0-0 libpangocairo-1.0-0 libcairo2 libgdk-pixbuf2.0-0 \
-    libffi8 libjpeg62-turbo libpng16-16 \
-    fonts-dejavu fonts-noto-core \
+    libcairo2 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libgdk-pixbuf-2.0-0 \
+    libffi8 \
+    libjpeg62-turbo \
+    libpng16-16 \
+    shared-mime-info \
+    fonts-dejavu \
+    fonts-noto-core \
     curl \
  && rm -rf /var/lib/apt/lists/*
 
@@ -18,10 +25,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Keep memory use low on the free plan
+# Keep memory low on free plan
 ENV WEB_CONCURRENCY=1
-
-# Render provides $PORT; default to 10000 if run locally
 EXPOSE 10000
 
 CMD exec gunicorn \
