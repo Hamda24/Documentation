@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ freq }}-{{ report_title }}</title>
+  <!-- Set the footer string once so it appears on every page -->
+  <style> body { string-set: footer_date "{{ today }}"; } </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="main-title">{{ freq }} Report Documentation</div>
+    <div class="report-title">{{ report_title }}</div>
+  </div>
+
+  <!-- 1 -->
+  <div class="block"><p class="title">1. Media Team:</p>
+    <p class="answer">{{ media_team }}</p></div>
+
+  <!-- 2 -->
+  <div class="block"><p class="title">2. Owner (Name + Email):</p>
+    <p class="answer">
+      {{ owner.name }} –
+      <a class="email-only" href="mailto:{{ owner.email }}">{{ owner.email }}</a>
+    </p>
+  </div>
+
+  <!-- 3 -->
+  <div class="block"><p class="title">3. Report Frequency:</p>
+    <p class="answer">{{ freq }}</p></div>
+
+  <!-- 4 -->
+  <div class="block"><p class="title">4. Platforms:</p>
+    <p class="answer">{{ ", ".join(platforms) }}</p></div>
+
+  <!-- 5 -->
+  <div class="block"><p class="title">5. Tools Used (e.g., Looker, Sheets, BigQuery, etc.):</p>
+    <p class="answer">{{ ", ".join(tools_used) }}</p></div>
+
+  <!-- 6 -->
+  <div class="block"><p class="title">6. Automated or Not Automated:</p>
+    <p class="answer">{{ "Automated" if automated else "Not Automated" }}</p></div>
+
+  <!-- 7 -->
+  <div class="block"><p class="title">7. Google Sheet(s) Link (with subtitle before each URL):</p>
+    <div class="answer">
+      {% for item in google_sheets %}
+        <div class="link-subtitle">{{ item.subtitle }}</div>
+        <div><a href="{{ item.url }}">{{ item.url }}</a></div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 8 (only if automated=true and link provided) -->
+  {% if automated and bigquery_link %}
+  <div class="block"><p class="title">8. BigQuery Link (only if Automated):</p>
+    <p class="answer"><a href="{{ bigquery_link }}">{{ bigquery_link }}</a></p></div>
+  {% else %}
+  <div class="block"><p class="title">8. BigQuery Link (only if Automated):</p>
+    <p class="answer">N/A</p></div>
+  {% endif %}
+
+  <!-- 9 -->
+  <div class="block"><p class="title">9. Report Link:</p>
+    <p class="answer"><a href="{{ report_link }}">{{ report_link }}</a></p></div>
+
+  <!-- 10 -->
+  <div class="block"><p class="title">10. Adjustments Needed:</p>
+    <p class="answer">{{ adjustments_needed }}</p></div>
+
+  <!-- 11 -->
+  <div class="block"><p class="title">11. Description:</p>
+    <p class="answer">{{ description }}</p></div>
+
+  <!-- 12 -->
+  <div class="block"><p class="title">12. Additional Notes / FAQ:</p>
+    <p class="answer">{{ additional_notes }}</p></div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+/* Page and footer date (bottom-right on every page; no extra page) */
+@page {
+  size: A4;
+  margin: 24mm 20mm 20mm 20mm;
+  @bottom-right {
+    content: string(footer_date);
+    font-family: Arial, sans-serif;
+    font-size: 10pt;
+    color: #000;
+  }
+}
+
+/* Global type + wrapping policy */
+* { box-sizing: border-box; hyphens: none; }   /* never hyphenate URLs */
+body {
+  font-family: Arial, sans-serif;              /* if Arial unavailable, OS will substitute */
+  color: #000;
+  font-size: 11pt;
+  line-height: 1.35;
+  /* Keep long URLs intact (no mid-token breaks). */
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* Header */
+.header { text-align: center; margin-bottom: 12px; }
+.header .main-title {
+  font-weight: 700; color:#000;
+  font-size: 17pt;            /* within 16–18pt */
+  margin: 0;
+}
+.header .report-title {
+  font-weight: 700; color:#000;
+  font-size: 15pt;            /* within 14–16pt */
+  margin: 2px 0 0 0;
+  padding-left: 6px;          /* slight indent 4–6px */
+}
+
+/* Body field blocks */
+.block { margin-top: 7px; break-inside: avoid; }  /* 6–8px spacing; keep title+answer together */
+.block .title {
+  margin: 0; font-weight: 700; color:#000;        /* numbered titles are bold black */
+}
+.block .answer {
+  margin: 0; padding-left: 6px;                   /* 4–6px indent */
+}
+
+/* Hyperlinks: blue + underlined + clickable */
+a { color: #1a73e8; text-decoration: underline; }
+
+/* Link subtitle: plain black text above each URL with 4–6px spacing */
+.link-subtitle { color:#000; margin-top: 6px; }
+
+/* Email rule: only the email address is clickable/blue/underlined */
+a.email-only { color: #1a73e8; text-decoration: underline; }
